@@ -1,0 +1,273 @@
+<meta charset="UTF-8">
+    <title>Affiliate Commission Tables</title>
+    <!-- Viewport meta tag for mobile scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to Inter font from Google Fonts with SemiBold weight -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <!-- Include Inter font with weights 400 and 600 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+    <!-- CSS Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 600; /* SemiBold */
+        }
+        .tables-container {
+            /* Removed flex display to stack tables vertically */
+        }
+        .table-wrapper {
+            width: 100%; /* Set width to 100% to occupy full width */
+            box-sizing: border-box;
+            margin-bottom: 40px; /* Increased margin for spacing between tables */
+        }
+        .table-wrapper h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: 600; /* SemiBold */
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Allows horizontal scrolling */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 300px; /* Ensures table doesn't shrink too much */
+        }
+        thead tr {
+            background-color: #f2f2f2;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            white-space: nowrap; /* Prevents text from wrapping */
+        }
+        th {
+            font-weight: 600;
+            text-align: center;
+        }
+        td {
+            text-align: center;
+        }
+        /* Left-align the text in the first column */
+        td:first-child {
+            text-align: left;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        /* Calculator Styles */
+        .calculator {
+            margin-bottom: 20px;
+        }
+        .calculator label {
+            display: block;
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .calculator input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        .calculator input[type="text"].invalid {
+            border-color: #e74c3c;
+        }
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            body {
+                margin: 10px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .table-wrapper h2 {
+                font-size: 1.2em;
+            }
+            th, td {
+                font-size: 0.9em;
+                white-space: normal; /* Allows text to wrap */
+            }
+            .calculator label {
+                font-size: 1em;
+            }
+            .calculator input[type="text"] {
+                font-size: 1em;
+            }
+            .error-message {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+
+
+
+    
+
+    <div class="tables-container">
+        <!-- Static Table for Companies <500 Employees -->
+        <div class="table-wrapper">
+            <h2>Companies with &lt;500 Employees</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Essentials</th>
+                            <th>Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Price Per Employee</td>
+                            <td>$N/A</td>
+                            <td>$N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Total Program Cost (Flat Fee)</td>
+                            <td>$24,500</td>
+                            <td>$74,500</td>
+                        </tr>
+                        <tr>
+                            <td>Affiliate Revenue Share (20% Tier)</td>
+                            <td>$4,900</td>
+                            <td>$14,900</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Dynamic Table for Companies 500+ Employees -->
+        <div class="table-wrapper">
+            <h2>Companies with 500+ Employees</h2>
+            <div class="calculator">
+                <input type="text" id="employees" name="employees" placeholder="Enter Number of Employees">
+                <div class="error-message" id="error-message">Please enter a number greater than 500.</div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Essentials</th>
+                            <th>Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Price Per Employee</td>
+                            <td>$49</td>
+                            <td>$149</td>
+                        </tr>
+                        <tr>
+                            <td>Total Program Cost</td>
+                            <td id="essentials-gross">$TBD</td>
+                            <td id="premium-gross">$TBD</td>
+                        </tr>
+                        <tr>
+                            <td>Affiliate Revenue Share (20% Tier)</td>
+                            <td id="essentials-commission">$TBD</td>
+                            <td id="premium-commission">$TBD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Code -->
+    <script>
+        // Constants
+        const essentialsPricePerEmployee = 49.00;
+        const premiumPricePerEmployee = 149.00;
+        const commissionRate = 0.20;
+        const minimumEmployees = 500;
+
+        // Get references to HTML elements
+        const employeesInput = document.getElementById('employees');
+        const errorMessage = document.getElementById('error-message');
+        const essentialsGrossEl = document.getElementById('essentials-gross');
+        const premiumGrossEl = document.getElementById('premium-gross');
+        const essentialsCommissionEl = document.getElementById('essentials-commission');
+        const premiumCommissionEl = document.getElementById('premium-commission');
+
+        // Function to format numbers as currency
+        function formatCurrency(value) {
+            return '$' + value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        // Function to update calculations
+        function updateCalculations(numEmployees) {
+            if (numEmployees > minimumEmployees) {
+                // Calculate Total Program Cost
+                const essentialsGross = essentialsPricePerEmployee * numEmployees;
+                const premiumGross = premiumPricePerEmployee * numEmployees;
+
+                // Calculate Affiliate Revenue Share
+                const essentialsCommission = essentialsGross * commissionRate;
+                const premiumCommission = premiumGross * commissionRate;
+
+                // Update the table with calculated values
+                essentialsGrossEl.textContent = formatCurrency(essentialsGross);
+                premiumGrossEl.textContent = formatCurrency(premiumGross);
+                essentialsCommissionEl.textContent = formatCurrency(essentialsCommission);
+                premiumCommissionEl.textContent = formatCurrency(premiumCommission);
+            } else {
+                // Reset the values to $TBD
+                essentialsGrossEl.textContent = '$TBD';
+                premiumGrossEl.textContent = '$TBD';
+                essentialsCommissionEl.textContent = '$TBD';
+                premiumCommissionEl.textContent = '$TBD';
+            }
+        }
+
+        // Function to validate input
+        function validateInput() {
+            let inputValue = employeesInput.value.trim();
+            let numEmployees = parseInt(inputValue);
+
+            if (!isNaN(numEmployees) && numEmployees > minimumEmployees) {
+                // Valid input
+                employeesInput.classList.remove('invalid');
+                errorMessage.style.display = 'none';
+                updateCalculations(numEmployees);
+            } else if (inputValue === '') {
+                // Empty input, reset to $TBD
+                employeesInput.classList.remove('invalid');
+                errorMessage.style.display = 'none';
+                updateCalculations(0);
+            } else {
+                // Invalid input
+                employeesInput.classList.add('invalid');
+                errorMessage.style.display = 'block';
+                updateCalculations(0);
+            }
+        }
+
+        // Event Listener for input change
+        employeesInput.addEventListener('input', function() {
+            validateInput();
+        });
+
+        // Initial display with $TBD
+        updateCalculations(0);
+    </script>
