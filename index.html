@@ -178,13 +178,13 @@
                         </tr>
                         <tr>
                             <td>Total Program Cost</td>
-                            <td id="essentials-gross" class="gray-text">$TBD</td>
-                            <td id="premium-gross" class="gray-text">$TBD</td>
+                            <td id="essentials-gross" class="gray-text">$--</td>
+                            <td id="premium-gross" class="gray-text">$--</td>
                         </tr>
                         <tr>
                             <td>Affiliate Revenue Share (20% Tier)</td>
-                            <td id="essentials-commission" class="gray-text">$TBD</td>
-                            <td id="premium-commission" class="gray-text">$TBD</td>
+                            <td id="essentials-commission" class="gray-text">$--</td>
+                            <td id="premium-commission" class="gray-text">$--</td>
                         </tr>
                     </tbody>
                 </table>
@@ -247,10 +247,10 @@
                 premiumCommissionEl.classList.remove('gray-text');
             } else {
                 // Reset the values to $TBD and change text color to gray
-                essentialsGrossEl.textContent = '$TBD';
-                premiumGrossEl.textContent = '$TBD';
-                essentialsCommissionEl.textContent = '$TBD';
-                premiumCommissionEl.textContent = '$TBD';
+                essentialsGrossEl.textContent = '$--';
+                premiumGrossEl.textContent = '$--';
+                essentialsCommissionEl.textContent = '$--';
+                premiumCommissionEl.textContent = '$--';
 
                 // Add gray text class
                 essentialsGrossEl.classList.add('gray-text');
@@ -296,7 +296,7 @@
             validateInput();
         });
 
-        // Initial display with $TBD
+        // Initial display with --
         updateCalculations(0);
     </script>
 
