@@ -1,31 +1,31 @@
-<meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>Affiliate Commission Tables</title>
     <!-- Viewport meta tag for mobile scaling -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Link to Inter font from Google Fonts with SemiBold weight -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Include Inter font with weights 400 and 600 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <!-- CSS Styles -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
             margin: 20px;
         }
-        h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            font-weight: 600; /* SemiBold */
-        }
+        /* Removed h1 styles as the h1 is deleted */
+
         .tables-container {
-            /* Removed flex display to stack tables vertically */
+            /* Stacked tables; no flex display */
         }
         .table-wrapper {
-            width: 100%; /* Set width to 100% to occupy full width */
+            width: 100%; /* Full width */
             box-sizing: border-box;
-            margin-bottom: 40px; /* Increased margin for spacing between tables */
+            margin-bottom: 40px; /* Spacing between tables */
         }
         .table-wrapper h2 {
             font-size: 1.5em;
@@ -60,12 +60,17 @@
         td:first-child {
             text-align: left;
         }
+        /* Style for the $TBD labels */
+        .gray-text {
+            color: lightgray;
+        }
         tbody tr:nth-child(even) {
             background-color: #fafafa;
         }
         /* Calculator Styles */
         .calculator {
             margin-bottom: 20px;
+            text-align: left; /* Align input to the left */
         }
         .calculator label {
             display: block;
@@ -76,7 +81,8 @@
         .calculator input[type="text"] {
             padding: 10px;
             font-size: 1em;
-            width: 100%;
+            width: 50%; /* Set width to 50% */
+            max-width: 300px; /* Optional: set a maximum width */
             border: 1px solid #ccc;
             border-radius: 4px;
             transition: border-color 0.3s;
@@ -96,9 +102,6 @@
             body {
                 margin: 10px;
             }
-            h1 {
-                font-size: 1.5em;
-            }
             .table-wrapper h2 {
                 font-size: 1.2em;
             }
@@ -111,16 +114,15 @@
             }
             .calculator input[type="text"] {
                 font-size: 1em;
+                width: 100%; /* Full width on small screens */
             }
             .error-message {
                 font-size: 0.85em;
             }
         }
     </style>
-
-
-
-    
+</head>
+<body>
 
     <div class="tables-container">
         <!-- Static Table for Companies <500 Employees -->
@@ -180,13 +182,13 @@
                         </tr>
                         <tr>
                             <td>Total Program Cost</td>
-                            <td id="essentials-gross">$TBD</td>
-                            <td id="premium-gross">$TBD</td>
+                            <td id="essentials-gross" class="gray-text">$TBD</td>
+                            <td id="premium-gross" class="gray-text">$TBD</td>
                         </tr>
                         <tr>
                             <td>Affiliate Revenue Share (20% Tier)</td>
-                            <td id="essentials-commission">$TBD</td>
-                            <td id="premium-commission">$TBD</td>
+                            <td id="essentials-commission" class="gray-text">$TBD</td>
+                            <td id="premium-commission" class="gray-text">$TBD</td>
                         </tr>
                     </tbody>
                 </table>
@@ -231,12 +233,24 @@
                 premiumGrossEl.textContent = formatCurrency(premiumGross);
                 essentialsCommissionEl.textContent = formatCurrency(essentialsCommission);
                 premiumCommissionEl.textContent = formatCurrency(premiumCommission);
+
+                // Change text color to black
+                essentialsGrossEl.classList.remove('gray-text');
+                premiumGrossEl.classList.remove('gray-text');
+                essentialsCommissionEl.classList.remove('gray-text');
+                premiumCommissionEl.classList.remove('gray-text');
             } else {
-                // Reset the values to $TBD
+                // Reset the values to $TBD and change text color to gray
                 essentialsGrossEl.textContent = '$TBD';
                 premiumGrossEl.textContent = '$TBD';
                 essentialsCommissionEl.textContent = '$TBD';
                 premiumCommissionEl.textContent = '$TBD';
+
+                // Add gray text class
+                essentialsGrossEl.classList.add('gray-text');
+                premiumGrossEl.classList.add('gray-text');
+                essentialsCommissionEl.classList.add('gray-text');
+                premiumCommissionEl.classList.add('gray-text');
             }
         }
 
@@ -271,3 +285,6 @@
         // Initial display with $TBD
         updateCalculations(0);
     </script>
+
+</body>
+</html>
