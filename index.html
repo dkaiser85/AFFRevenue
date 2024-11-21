@@ -212,6 +212,16 @@
         const essentialsCommissionEl = document.getElementById('essentials-commission');
         const premiumCommissionEl = document.getElementById('premium-commission');
 
+        // Function to format numbers with commas
+        function formatNumberWithCommas(value) {
+            value = value.replace(/\D/g, '');
+            let num = parseInt(value);
+            if (isNaN(num)) {
+                return '';
+            }
+            return num.toLocaleString();
+        }
+
         // Function to format numbers as currency
         function formatCurrency(value) {
             return '$' + value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -256,7 +266,7 @@
 
         // Function to validate input
         function validateInput() {
-            let inputValue = employeesInput.value.trim();
+            let inputValue = employeesInput.value.trim().replace(/,/g, '');
             let numEmployees = parseInt(inputValue);
 
             if (!isNaN(numEmployees) && numEmployees > minimumEmployees) {
@@ -277,8 +287,16 @@
             }
         }
 
-        // Event Listener for input change
+        // Event Listener for input change with formatting
         employeesInput.addEventListener('input', function() {
+            // Remove non-digit characters except commas
+            let inputValue = employeesInput.value.replace(/,/g, '').replace(/\D/g, '');
+            // Format the number with commas
+            let formattedValue = formatNumberWithCommas(inputValue);
+            // Update the input field with the formatted value
+            employeesInput.value = formattedValue;
+
+            // Validate input and update calculations
             validateInput();
         });
 
