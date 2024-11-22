@@ -19,9 +19,7 @@
         }
         /* Removed h1 styles as the h1 is deleted */
 
-        .tables-container {
-            /* Stacked tables; no flex display */
-        }
+        
         .table-wrapper {
             width: 100%; /* Full width */
             box-sizing: border-box;
@@ -35,18 +33,20 @@
         .table-container {
             width: 100%;
             overflow-x: auto; /* Allows horizontal scrolling */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 300px; /* Ensures table doesn't shrink too much */
+            min-width: 280px; /* Reduced from 300px to fit smaller screens */
         }
         thead tr {
             background-color: #f2f2f2;
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 12px;
+            padding: 8px; /* Reduced padding from 12px */
+            font-size: 14px; /* Base font size for table content */
             white-space: nowrap; /* Prevents text from wrapping */
         }
         th {
@@ -100,24 +100,48 @@
         /* Responsive Design */
         @media (max-width: 600px) {
             body {
-                margin: 10px;
+                margin: 5px; /* Reduced margin */
+            }
+            .table-wrapper {
+                margin-bottom: 20px; /* Reduced spacing between tables */
             }
             .table-wrapper h2 {
-                font-size: 1.2em;
+                font-size: 1.1em;
+                margin-bottom: 10px;
             }
             th, td {
-                font-size: 0.9em;
-                white-space: normal; /* Allows text to wrap */
+                padding: 6px; /* Further reduce padding on mobile */
+                font-size: 0.85em; /* Smaller font size */
             }
             .calculator label {
                 font-size: 1em;
             }
             .calculator input[type="text"] {
-                font-size: 1em;
-                width: 100%; /* Full width on small screens */
+                padding: 8px;
+                font-size: 0.9em;
             }
             .error-message {
+                font-size: 0.75em;
+            }
+        }
+        /* Add new media query for very small screens */
+        @media (max-width: 320px) {
+            body {
+                margin: 2px;
+            }
+            .table-wrapper h2 {
+                font-size: 1em;
+            }
+            th, td {
+                padding: 4px;
+                font-size: 0.8em;
+            }
+            .calculator input[type="text"] {
+                padding: 6px;
                 font-size: 0.85em;
+            }
+            .error-message {
+                font-size: 0.75em;
             }
         }
     </style>
